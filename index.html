@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Rift</title>
+    <title>RIFT</title>
 
     <style>
         * {
@@ -13,12 +14,31 @@
             padding: 0;
         }
 
+        :root {
+            --bg: #090b10;
+            --card: #12151c;
+            --card2: #171b24;
+            --line: #242a35;
+            --text: #ffffff;
+            --muted: #777f8e;
+            --accent: #3d7cff;
+        }
+
         body {
-            background: #090b10;
-            color: #ffffff;
+            background: var(--bg);
+            color: var(--text);
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            border: none;
         }
 
         .app {
@@ -26,170 +46,614 @@
             max-width: 520px;
             min-height: 100vh;
             margin: 0 auto;
-            padding: 22px 18px;
-            display: flex;
-            flex-direction: column;
+            padding: 18px 16px 24px;
         }
 
-        /* HEADER */
+        /* =========================
+           HEADER
+        ========================= */
 
         .top {
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 1px;
-
-            font-size: 28px;
+            font-size: 27px;
             font-weight: 900;
             letter-spacing: -1.8px;
         }
 
-        .logo .bolt {
-            color: #3d7cff;
-            font-size: 31px;
-            line-height: 1;
-            transform: skew(-8deg);
+        .logo .rift-mark {
+            color: var(--accent);
+            display: inline-block;
+            transform: skew(-12deg);
             margin: 0 -1px;
         }
 
-        .profile {
-            width: 40px;
-            height: 40px;
+        .profile-button {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            overflow: hidden;
             background: #151922;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
-        }
-
-        /* HERO */
-
-        .hero {
-            width: 100%;
-            margin-top: 90px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 58px;
-            line-height: 0.95;
-            letter-spacing: -4px;
-            font-weight: 900;
-        }
-
-        .hero p {
-            margin-top: 20px;
-            color: #3d7cff;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
-        /* BUTTON */
-
-        .rift-button {
-            width: 100%;
-            margin-top: 34px;
-
-            border: none;
-            border-radius: 16px;
-
-            padding: 18px 20px;
-
-            background: #3d7cff;
-            color: #ffffff;
-
-            font-size: 17px;
-            font-weight: 800;
-
+            border: 1px solid #292f3b;
             cursor: pointer;
-            transition: transform 0.15s ease;
+            padding: 0;
         }
 
-        .rift-button:active {
-            transform: scale(0.97);
-        }
-
-        /* CARDS */
-
-        .cards {
+        .profile-button img {
             width: 100%;
-            margin-top: auto;
-            padding-top: 70px;
-
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
 
-        .card {
-            min-height: 120px;
-
-            border-radius: 18px;
-            background: #14171f;
-
-            padding: 18px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            text-align: left;
-        }
-
-        .card-icon {
-            width: 38px;
-            height: 38px;
-
-            border-radius: 11px;
-            background: #1b2130;
-
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            color: #3d7cff;
+            color: #8c94a3;
             font-size: 19px;
-            font-weight: 800;
         }
 
-        .card strong {
-            display: block;
+        /* =========================
+           HOME
+        ========================= */
 
-            font-size: 15px;
-            font-weight: 800;
+        .home {
+            padding-top: 26px;
+            padding-bottom: 110px;
         }
 
-        .card p {
+        .welcome {
+            margin-top: 18px;
+        }
+
+        .welcome .small {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .welcome h1 {
             margin-top: 5px;
+            font-size: 32px;
+            letter-spacing: -1.4px;
+        }
 
-            color: #777e8d;
+        /* PLAYER CARD */
+
+        .player-card {
+            margin-top: 22px;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(61,124,255,.13), transparent 38%),
+                var(--card);
+        }
+
+        .player-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .big-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #1b202a;
+            flex-shrink: 0;
+        }
+
+        .big-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-info {
+            min-width: 0;
+        }
+
+        .player-info h2 {
+            font-size: 19px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .level {
+            margin-top: 6px;
+            color: var(--muted);
             font-size: 12px;
         }
 
-        /* SMALL SCREENS */
+        .xp-bar {
+            margin-top: 10px;
+            width: 150px;
+            height: 5px;
+            background: #292e39;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            width: 28%;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .currency {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .currency-box {
+            background: #0d1016;
+            border-radius: 13px;
+            padding: 12px;
+        }
+
+        .currency-box span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .currency-box strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 17px;
+        }
+
+        /* STATS */
+
+        .stats {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat {
+            padding: 15px 10px;
+            text-align: center;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        /* MAIN GAME */
+
+        .main-game {
+            margin-top: 18px;
+            min-height: 190px;
+            border-radius: 23px;
+            padding: 22px;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(61,124,255,.18), transparent 42%),
+                #11151d;
+            border: 1px solid #2b3444;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-game-label {
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .main-game h2 {
+            margin-top: 7px;
+            font-size: 38px;
+            letter-spacing: -2px;
+        }
+
+        .main-game p {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 13px;
+            max-width: 250px;
+        }
+
+        .play-button {
+            margin-top: 22px;
+            padding: 13px 19px;
+            border-radius: 13px;
+            background: var(--accent);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* NAVIGATION */
+
+        .mode-title {
+            margin-top: 26px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .modes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .mode {
+            min-height: 90px;
+            padding: 15px;
+            border-radius: 17px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            text-align: left;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mode-icon {
+            font-size: 20px;
+        }
+
+        .mode strong {
+            display: block;
+            margin-top: 13px;
+            font-size: 14px;
+        }
+
+        .mode span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .mode:active,
+        .profile-button:active,
+        .play-button:active {
+            transform: scale(.97);
+        }
+
+        /* =========================
+           BOTTOM NAV
+        ========================= */
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 488px;
+
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+
+            padding: 8px;
+            border-radius: 20px;
+
+            background: rgba(16, 19, 26, .94);
+            border: 1px solid #292f3a;
+            backdrop-filter: blur(16px);
+
+            z-index: 20;
+        }
+
+        .nav-item {
+            padding: 9px 2px;
+            border-radius: 13px;
+            background: transparent;
+            color: #747c8b;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            color: white;
+            background: #1b202a;
+        }
+
+        .nav-item .icon {
+            display: block;
+            font-size: 17px;
+        }
+
+        .nav-item span {
+            display: block;
+            margin-top: 4px;
+            font-size: 9px;
+        }
+
+        .nav-center {
+            color: white;
+        }
+
+        .nav-center .icon {
+            color: var(--accent);
+        }
+
+        /* =========================
+           PROFILE PAGE
+        ========================= */
+
+        .page {
+            display: none;
+            padding-top: 25px;
+            padding-bottom: 110px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-button {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--card);
+            color: white;
+            cursor: pointer;
+        }
+
+        .page-header h1 {
+            font-size: 25px;
+        }
+
+        .profile-large {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .profile-large-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 2px solid var(--line);
+        }
+
+        .profile-large-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-large h2 {
+            margin-top: 13px;
+            font-size: 24px;
+        }
+
+        .edit-profile {
+            margin-top: 15px;
+            padding: 11px 17px;
+            border-radius: 12px;
+            background: var(--card2);
+            color: white;
+            border: 1px solid var(--line);
+            cursor: pointer;
+        }
+
+        .profile-section {
+            margin-top: 25px;
+            padding: 17px;
+            border-radius: 18px;
+            background: var(--card);
+            border: 1px solid var(--line);
+        }
+
+        .profile-section h3 {
+            font-size: 14px;
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid #20252e;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-row span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .profile-row strong {
+            font-size: 13px;
+        }
+
+        /* =========================
+           ONBOARDING
+        ========================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(5, 7, 10, .88);
+            backdrop-filter: blur(10px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .onboarding {
+            width: 100%;
+            max-width: 390px;
+            padding: 24px;
+            border-radius: 25px;
+            background: #11151c;
+            border: 1px solid #292f3a;
+        }
+
+        .onboarding-logo {
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: -3px;
+        }
+
+        .onboarding-logo span {
+            color: var(--accent);
+        }
+
+        .onboarding h2 {
+            margin-top: 25px;
+            font-size: 25px;
+        }
+
+        .onboarding p {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .avatar-picker {
+            margin: 23px auto 0;
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: #1a1f29;
+            border: 1px dashed #414957;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .avatar-picker img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .avatar-picker-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8991a0;
+            font-size: 12px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        #avatarInput {
+            display: none;
+        }
+
+        .nickname-input {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 13px;
+            border: 1px solid #2b313c;
+            outline: none;
+            background: #0c0f14;
+            color: white;
+        }
+
+        .nickname-input:focus {
+            border-color: var(--accent);
+        }
+
+        .continue-button {
+            width: 100%;
+            margin-top: 12px;
+            padding: 15px;
+            border-radius: 13px;
+            background: var(--accent);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .error {
+            margin-top: 9px;
+            color: #ff5d5d;
+            font-size: 12px;
+            display: none;
+        }
+
+        /* =========================
+           OTHER PAGES
+        ========================= */
+
+        .placeholder-page {
+            margin-top: 35px;
+            padding: 30px 20px;
+            border-radius: 22px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .placeholder-page .big-icon {
+            font-size: 42px;
+        }
+
+        .placeholder-page h2 {
+            margin-top: 15px;
+            font-size: 25px;
+        }
+
+        .placeholder-page p {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.4;
+        }
 
         @media (max-height: 700px) {
-
-            .hero {
-                margin-top: 55px;
+            .welcome {
+                margin-top: 5px;
             }
 
-            .hero h1 {
-                font-size: 50px;
+            .player-card {
+                margin-top: 15px;
             }
 
-            .cards {
-                padding-top: 45px;
+            .main-game {
+                min-height: 165px;
             }
         }
     </style>
@@ -204,95 +668,435 @@
     <div class="top">
 
         <div class="logo">
-            R
-            <span class="bolt">ϟ</span>
-            FT
+            R<span class="rift-mark">I</span>FT
         </div>
 
-        <div class="profile">
-            🌀
-        </div>
-
-    </div>
-
-
-    <!-- HERO -->
-
-    <div class="hero">
-
-        <h1>
-            Rift
-        </h1>
-
-        <p>
-            Social Game.
-        </p>
-
-        <button class="rift-button" id="startButton">
-            Войти в Rift →
+        <button class="profile-button" id="profileButton">
+            <img id="topAvatar" alt="avatar">
+            <div class="profile-placeholder" id="topAvatarPlaceholder">●</div>
         </button>
 
     </div>
 
 
-    <!-- FEATURES -->
+    <!-- =========================
+         HOME
+    ========================= -->
 
-    <div class="cards">
+    <main class="home" id="homePage">
 
-        <div class="card">
+        <div class="welcome">
+            <div class="small">Добро пожаловать обратно</div>
+            <h1 id="welcomeName">Player</h1>
+        </div>
 
-            <div class="card-icon">
-                ▶
+
+        <!-- PLAYER -->
+
+        <div class="player-card">
+
+            <div class="player-top">
+
+                <div class="big-avatar">
+                    <img id="homeAvatar" alt="avatar">
+                </div>
+
+                <div class="player-info">
+
+                    <h2 id="homeNickname">Player</h2>
+
+                    <div class="level">
+                        LEVEL 1 · 280 / 1000 XP
+                    </div>
+
+                    <div class="xp-bar">
+                        <div class="xp-fill"></div>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div>
-                <strong>Играй</strong>
-                <p>Заходи и участвуй</p>
+
+            <div class="currency">
+
+                <div class="currency-box">
+                    <span>COINS</span>
+                    <strong>0 🪙</strong>
+                </div>
+
+                <div class="currency-box">
+                    <span>GEMS</span>
+                    <strong>0 💎</strong>
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="card">
+        <!-- STATS -->
 
-            <div class="card-icon">
-                ↗
+        <div class="stats">
+
+            <div class="stat">
+                <strong>0</strong>
+                <span>WINS</span>
             </div>
 
-            <div>
-                <strong>Прокачивайся</strong>
-                <p>Развивай свой профиль</p>
+            <div class="stat">
+                <strong>1000</strong>
+                <span>RATING</span>
             </div>
 
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                VS
-            </div>
-
-            <div>
-                <strong>Соревнуйся</strong>
-                <p>Играй против других</p>
+            <div class="stat">
+                <strong>0</strong>
+                <span>GAMES</span>
             </div>
 
         </div>
 
 
-        <div class="card">
+        <!-- MAIN GAME -->
 
-            <div class="card-icon">
-                ★
+        <div class="main-game">
+
+            <div class="main-game-label">
+                MAIN MODE
             </div>
 
-            <div>
-                <strong>Выигрывай</strong>
-                <p>Забирай свой результат</p>
+            <h2>DUEL</h2>
+
+            <p>
+                Найди соперника своего уровня и покажи, кто сильнее.
+            </p>
+
+            <button class="play-button" id="duelButton">
+                Играть →
+            </button>
+
+        </div>
+
+
+        <!-- QUICK MODES -->
+
+        <div class="mode-title">
+            RIFT MODES
+        </div>
+
+        <div class="modes">
+
+            <button class="mode" onclick="openPage('miniGames')">
+                <div class="mode-icon">◉</div>
+                <strong>Mini Games</strong>
+                <span>Быстрые игры</span>
+            </button>
+
+            <button class="mode" onclick="openPage('flip')">
+                <div class="mode-icon">↻</div>
+                <strong>FLIP</strong>
+                <span>Отдельные игровые режимы</span>
+            </button>
+
+            <button class="mode" onclick="openPage('clans')">
+                <div class="mode-icon">♜</div>
+                <strong>Clans</strong>
+                <span>Играй вместе</span>
+            </button>
+
+            <button class="mode" onclick="openPage('billboard')">
+                <div class="mode-icon">★</div>
+                <strong>Billboard</strong>
+                <span>Топ игроков</span>
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         PROFILE
+    ========================= -->
+
+    <main class="page" id="profilePage">
+
+        <div class="page-header">
+
+            <button class="back-button" onclick="goHome()">
+                ←
+            </button>
+
+            <h1>Profile</h1>
+
+        </div>
+
+
+        <div class="profile-large">
+
+            <div class="profile-large-avatar">
+                <img id="profileAvatar" alt="avatar">
+            </div>
+
+            <h2 id="profileNickname">Player</h2>
+
+            <button class="edit-profile" id="editProfileButton">
+                Изменить профиль
+            </button>
+
+        </div>
+
+
+        <div class="profile-section">
+
+            <h3>Статистика</h3>
+
+            <div class="profile-row">
+                <span>Level</span>
+                <strong>1</strong>
+            </div>
+
+            <div class="profile-row">
+                <span>Rating</span>
+                <strong>1000</strong>
+            </div>
+
+            <div class="profile-row">
+                <span>Wins</span>
+                <strong>0</strong>
+            </div>
+
+            <div class="profile-row">
+                <span>Games</span>
+                <strong>0</strong>
             </div>
 
         </div>
+
+
+        <div class="profile-section">
+
+            <h3>Collection</h3>
+
+            <div class="profile-row">
+                <span>Items</span>
+                <strong>0</strong>
+            </div>
+
+            <div class="profile-row">
+                <span>Achievements</span>
+                <strong>0</strong>
+            </div>
+
+            <div class="profile-row">
+                <span>Clan</span>
+                <strong>None</strong>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         MINI GAMES
+    ========================= -->
+
+    <main class="page" id="miniGamesPage">
+
+        <div class="page-header">
+            <button class="back-button" onclick="goHome()">←</button>
+            <h1>Mini Games</h1>
+        </div>
+
+        <div class="placeholder-page">
+
+            <div class="big-icon">◉</div>
+
+            <h2>Mini Games</h2>
+
+            <p>
+                Здесь появятся быстрые игры RIFT.
+                Первой сделаем одну игру и подключим XP, Coins и рейтинг.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FLIP
+    ========================= -->
+
+    <main class="page" id="flipPage">
+
+        <div class="page-header">
+            <button class="back-button" onclick="goHome()">←</button>
+            <h1>FLIP</h1>
+        </div>
+
+        <div class="placeholder-page">
+
+            <div class="big-icon">↻</div>
+
+            <h2>FLIP</h2>
+
+            <p>
+                Отдельный раздел быстрых игровых механик.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         CLANS
+    ========================= -->
+
+    <main class="page" id="clansPage">
+
+        <div class="page-header">
+            <button class="back-button" onclick="goHome()">←</button>
+            <h1>Clans</h1>
+        </div>
+
+        <div class="placeholder-page">
+
+            <div class="big-icon">♜</div>
+
+            <h2>Clans</h2>
+
+            <p>
+                Создание и вступление в кланы,
+                участники и клановый рейтинг.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         BILLBOARD
+    ========================= -->
+
+    <main class="page" id="billboardPage">
+
+        <div class="page-header">
+            <button class="back-button" onclick="goHome()">←</button>
+            <h1>Billboard</h1>
+        </div>
+
+        <div class="placeholder-page">
+
+            <div class="big-icon">★</div>
+
+            <h2>Billboard</h2>
+
+            <p>
+                Топ игроков, рейтинги, события
+                и самые заметные достижения.
+            </p>
+
+        </div>
+
+    </main>
+
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button class="nav-item" onclick="openPage('clans')">
+        <span class="icon">♜</span>
+        <span>Clans</span>
+    </button>
+
+    <button class="nav-item" onclick="openPage('miniGames')">
+        <span class="icon">◉</span>
+        <span>Games</span>
+    </button>
+
+    <button class="nav-item nav-center" onclick="goHome()">
+        <span class="icon">R</span>
+        <span>DUEL</span>
+    </button>
+
+    <button class="nav-item" onclick="openPage('flip')">
+        <span class="icon">↻</span>
+        <span>FLIP</span>
+    </button>
+
+    <button class="nav-item" onclick="openPage('billboard')">
+        <span class="icon">★</span>
+        <span>Board</span>
+    </button>
+
+</nav>
+
+
+<!-- =========================
+     ONBOARDING
+========================= -->
+
+<div class="overlay" id="onboarding">
+
+    <div class="onboarding">
+
+        <div class="onboarding-logo">
+            R<span>I</span>FT
+        </div>
+
+        <h2>Создай свой профиль</h2>
+
+        <p>
+            Выбери аватар и придумай ник.
+            Это будет твой профиль в RIFT.
+        </p>
+
+
+        <label class="avatar-picker" for="avatarInput">
+
+            <img id="avatarPreview" alt="avatar">
+
+            <div class="avatar-picker-text" id="avatarPickerText">
+                +<br>
+                Добавить фото
+            </div>
+
+        </label>
+
+        <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+        >
+
+
+        <input
+            class="nickname-input"
+            id="nicknameInput"
+            type="text"
+            maxlength="20"
+            placeholder="Твой ник"
+            autocomplete="off"
+        >
+
+        <div class="error" id="nicknameError">
+            Введи ник от 2 до 20 символов.
+        </div>
+
+
+        <button class="continue-button" id="continueButton">
+            Создать профиль →
+        </button>
 
     </div>
 
@@ -300,18 +1104,296 @@
 
 
 <script>
-    const button = document.getElementById("startButton");
 
-    button.addEventListener("click", () => {
+    /* =========================
+       DATA
+    ========================= */
 
-        button.textContent = "Загрузка...";
+    const savedNickname = localStorage.getItem("rift_nickname");
+    const savedAvatar = localStorage.getItem("rift_avatar");
 
-        setTimeout(() => {
-            button.textContent = "Войти в Rift →";
-        }, 800);
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const onboarding = document.getElementById("onboarding");
+
+    const nicknameInput = document.getElementById("nicknameInput");
+    const avatarInput = document.getElementById("avatarInput");
+
+    const avatarPreview = document.getElementById("avatarPreview");
+    const avatarPickerText = document.getElementById("avatarPickerText");
+
+    const nicknameError = document.getElementById("nicknameError");
+
+    const continueButton = document.getElementById("continueButton");
+
+    const homeNickname = document.getElementById("homeNickname");
+    const welcomeName = document.getElementById("welcomeName");
+
+    const profileNickname = document.getElementById("profileNickname");
+
+    const homeAvatar = document.getElementById("homeAvatar");
+    const profileAvatar = document.getElementById("profileAvatar");
+    const topAvatar = document.getElementById("topAvatar");
+
+    const topAvatarPlaceholder =
+        document.getElementById("topAvatarPlaceholder");
+
+
+    /* =========================
+       AVATAR UPLOAD
+    ========================= */
+
+    avatarInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            avatarPreview.src = event.target.result;
+
+            avatarPreview.style.display = "block";
+
+            avatarPickerText.style.display = "none";
+
+        };
+
+        reader.readAsDataURL(file);
 
     });
+
+
+    /* =========================
+       CREATE PROFILE
+    ========================= */
+
+    continueButton.addEventListener("click", function () {
+
+        const nickname =
+            nicknameInput.value.trim();
+
+        if (nickname.length < 2 || nickname.length > 20) {
+
+            nicknameError.style.display = "block";
+
+            return;
+        }
+
+        nicknameError.style.display = "none";
+
+
+        localStorage.setItem(
+            "rift_nickname",
+            nickname
+        );
+
+
+        if (avatarPreview.src) {
+
+            localStorage.setItem(
+                "rift_avatar",
+                avatarPreview.src
+            );
+
+        }
+
+
+        loadProfile();
+
+        onboarding.style.display = "none";
+
+    });
+
+
+    /* =========================
+       LOAD PROFILE
+    ========================= */
+
+    function loadProfile() {
+
+        const nickname =
+            localStorage.getItem("rift_nickname")
+            || "Player";
+
+        const avatar =
+            localStorage.getItem("rift_avatar");
+
+
+        homeNickname.textContent = nickname;
+
+        welcomeName.textContent = nickname;
+
+        profileNickname.textContent = nickname;
+
+
+        if (avatar) {
+
+            homeAvatar.src = avatar;
+
+            profileAvatar.src = avatar;
+
+            topAvatar.src = avatar;
+
+            homeAvatar.style.display = "block";
+
+            profileAvatar.style.display = "block";
+
+            topAvatar.style.display = "block";
+
+            topAvatarPlaceholder.style.display = "none";
+
+        }
+
+    }
+
+
+    /* =========================
+       PROFILE BUTTON
+    ========================= */
+
+    document
+        .getElementById("profileButton")
+        .addEventListener("click", function () {
+
+            document
+                .getElementById("homePage")
+                .style.display = "none";
+
+            document
+                .getElementById("profilePage")
+                .classList.add("active");
+
+        });
+
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
+    function openPage(pageName) {
+
+        document
+            .getElementById("homePage")
+            .style.display = "none";
+
+
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+
+                page.classList.remove("active");
+
+            });
+
+
+        const page =
+            document.getElementById(
+                pageName + "Page"
+            );
+
+        if (page) {
+            page.classList.add("active");
+        }
+
+    }
+
+
+    function goHome() {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+
+                page.classList.remove("active");
+
+            });
+
+
+        document
+            .getElementById("homePage")
+            .style.display = "block";
+
+    }
+
+
+    /* =========================
+       DUEL BUTTON
+    ========================= */
+
+    document
+        .getElementById("duelButton")
+        .addEventListener("click", function () {
+
+            this.textContent = "Поиск соперника...";
+
+            setTimeout(() => {
+
+                this.textContent = "Играть →";
+
+                alert(
+                    "DUEL пока находится в разработке."
+                );
+
+            }, 700);
+
+        });
+
+
+    /* =========================
+       EDIT PROFILE
+    ========================= */
+
+    document
+        .getElementById("editProfileButton")
+        .addEventListener("click", function () {
+
+            onboarding.style.display = "flex";
+
+            nicknameInput.value =
+                localStorage.getItem("rift_nickname")
+                || "";
+
+            const avatar =
+                localStorage.getItem("rift_avatar");
+
+            if (avatar) {
+
+                avatarPreview.src = avatar;
+
+                avatarPreview.style.display = "block";
+
+                avatarPickerText.style.display = "none";
+
+            }
+
+        });
+
+
+    /* =========================
+       FIRST LAUNCH
+    ========================= */
+
+    if (savedNickname) {
+
+        loadProfile();
+
+        onboarding.style.display = "none";
+
+    } else {
+
+        onboarding.style.display = "flex";
+
+    }
+
 </script>
 
 </body>
-</html> 
+</html>
