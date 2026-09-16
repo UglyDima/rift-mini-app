@@ -14,7 +14,7 @@
         }
 
         body {
-            background: #0b0b0d;
+            background: #090b10;
             color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
@@ -41,23 +41,33 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 1px;
+
             font-size: 28px;
             font-weight: 900;
             letter-spacing: -1.8px;
         }
 
-        .logo span {
-            color: #ff3045;
+        .logo .bolt {
+            color: #3d7cff;
+            font-size: 31px;
+            line-height: 1;
+            transform: skew(-8deg);
+            margin: 0 -1px;
         }
 
         .profile {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #17171b;
+            background: #151922;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 18px;
         }
 
@@ -70,23 +80,18 @@
         }
 
         .hero h1 {
-            font-size: 54px;
+            font-size: 58px;
             line-height: 0.95;
-            letter-spacing: -3.5px;
+            letter-spacing: -4px;
             font-weight: 900;
         }
 
-        .hero h1 span {
-            color: #ff3045;
-        }
-
         .hero p {
-            width: 100%;
-            max-width: 300px;
-            margin: 20px auto 0;
-            color: #85858d;
-            font-size: 16px;
-            line-height: 1.45;
+            margin-top: 20px;
+            color: #3d7cff;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         /* BUTTON */
@@ -94,13 +99,18 @@
         .rift-button {
             width: 100%;
             margin-top: 34px;
+
             border: none;
             border-radius: 16px;
+
             padding: 18px 20px;
-            background: #ff3045;
+
+            background: #3d7cff;
             color: #ffffff;
+
             font-size: 17px;
             font-weight: 800;
+
             cursor: pointer;
             transition: transform 0.15s ease;
         }
@@ -122,53 +132,60 @@
         }
 
         .card {
-            min-height: 125px;
+            min-height: 120px;
+
             border-radius: 18px;
-            background: #151519;
+            background: #14171f;
+
             padding: 18px;
 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            text-align: left;
         }
 
         .card-icon {
             width: 38px;
             height: 38px;
+
             border-radius: 11px;
-            background: #202025;
+            background: #1b2130;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 18px;
-        }
-
-        .card:last-child .card-icon {
-            color: #ff3045;
+            color: #3d7cff;
+            font-size: 19px;
+            font-weight: 800;
         }
 
         .card strong {
+            display: block;
+
             font-size: 15px;
             font-weight: 800;
         }
 
         .card p {
-            margin-top: 4px;
-            color: #77777f;
+            margin-top: 5px;
+
+            color: #777e8d;
             font-size: 12px;
         }
 
         /* SMALL SCREENS */
 
         @media (max-height: 700px) {
+
             .hero {
                 margin-top: 55px;
             }
 
             .hero h1 {
-                font-size: 48px;
+                font-size: 50px;
             }
 
             .cards {
@@ -182,26 +199,33 @@
 
 <div class="app">
 
+    <!-- HEADER -->
+
     <div class="top">
+
         <div class="logo">
-            RIFT<span>.</span>
+            R
+            <span class="bolt">ϟ</span>
+            FT
         </div>
 
         <div class="profile">
-            👤
+            🌀
         </div>
+
     </div>
 
+
+    <!-- HERO -->
 
     <div class="hero">
 
         <h1>
-            Это<br>
-            <span>Rift.</span>
+            Rift
         </h1>
 
         <p>
-            Социальная игра, где всё происходит между людьми.
+            Social Game.
         </p>
 
         <button class="rift-button" id="startButton">
@@ -211,17 +235,19 @@
     </div>
 
 
+    <!-- FEATURES -->
+
     <div class="cards">
 
         <div class="card">
 
             <div class="card-icon">
-                ✦
+                ▶
             </div>
 
             <div>
-                <strong>Люди</strong>
-                <p>Общайся и играй</p>
+                <strong>Играй</strong>
+                <p>Заходи и участвуй</p>
             </div>
 
         </div>
@@ -230,12 +256,40 @@
         <div class="card">
 
             <div class="card-icon">
-                ⟡
+                ↗
             </div>
 
             <div>
-                <strong>Игра</strong>
-                <p>Смотри, что будет</p>
+                <strong>Прокачивайся</strong>
+                <p>Развивай свой профиль</p>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                VS
+            </div>
+
+            <div>
+                <strong>Соревнуйся</strong>
+                <p>Играй против других</p>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ★
+            </div>
+
+            <div>
+                <strong>Выигрывай</strong>
+                <p>Забирай свой результат</p>
             </div>
 
         </div>
@@ -249,13 +303,15 @@
     const button = document.getElementById("startButton");
 
     button.addEventListener("click", () => {
+
         button.textContent = "Загрузка...";
-        
+
         setTimeout(() => {
             button.textContent = "Войти в Rift →";
         }, 800);
+
     });
 </script>
 
 </body>
-</html>
+</html> 
