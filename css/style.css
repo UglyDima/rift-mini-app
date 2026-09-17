@@ -653,4 +653,12 @@ button {
     .main-game {
         min-height: 165px;
     }
+}/* Fix onboarding spacing */
+
+#onboarding {
+    padding-top: 30px;
+}
+
+#avatarPicker {
+    margin-bottom: 30px;
 }
