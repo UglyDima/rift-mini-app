@@ -661,4 +661,12 @@ button {
 
 #avatarPicker {
     margin-bottom: 30px;
+}/* ONBOARDING SPACING FIX */
+
+.avatar-picker {
+    margin-bottom: 24px;
+}
+
+.nickname-input {
+    margin-top: 0;
 }
